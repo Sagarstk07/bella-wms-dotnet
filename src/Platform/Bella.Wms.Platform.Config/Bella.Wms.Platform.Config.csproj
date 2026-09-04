@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../Bella.Wms.Platform.Abstractions/Bella.Wms.Platform.Abstractions.csproj" />
+    <ProjectReference Include="../Bella.Wms.Platform.Data/Bella.Wms.Platform.Data.csproj" />
+    <ProjectReference Include="../Bella.Wms.Platform.Context/Bella.Wms.Platform.Context.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+  </ItemGroup>
+</Project>

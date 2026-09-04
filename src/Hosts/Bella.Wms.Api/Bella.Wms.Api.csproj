@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <ProjectReference Include="../../Modules/Bella.Wms.Integration.Erp/Infrastructure/Bella.Wms.Integration.Erp.Infrastructure.csproj" />
+    <ProjectReference Include="../../Modules/Bella.Wms.Integration.Partners/Infrastructure/Bella.Wms.Integration.Partners.Infrastructure.csproj" />
+    <ProjectReference Include="../../Platform/Bella.Wms.Platform.Identity/Bella.Wms.Platform.Identity.csproj" />
+    <ProjectReference Include="../../Platform/Bella.Wms.Platform.Http/Bella.Wms.Platform.Http.csproj" />
+    <ProjectReference Include="../../Platform/Bella.Wms.Platform.Audit/Bella.Wms.Platform.Audit.csproj" />
+    <ProjectReference Include="../../Platform/Bella.Wms.Platform.Config/Bella.Wms.Platform.Config.csproj" />
+    <!--
+      Development-only, but referenced unconditionally so the guard in AddWmsFakes is what
+      enforces that rather than a build configuration. The guard throws outside
+      Development; a #if would move the decision to compile time, where a Release build
+      that accidentally set UseFakeData would fail silently instead of loudly.
+      Delete this reference along with the Fakes project once integration tests run
+      against a real database.
+    -->
+    <ProjectReference Include="../../Platform/Bella.Wms.Platform.Fakes/Bella.Wms.Platform.Fakes.csproj" />
+  </ItemGroup>
+</Project>

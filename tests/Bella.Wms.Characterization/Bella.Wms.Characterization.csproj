@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <!--
+      LocusEndpointTests hosts the real API in-process via WebApplicationFactory<Program>,
+      so it needs the host project itself and the in-memory fakes it swaps in. Both were
+      missing until 2026-09-01, which is why that file could not compile: seven CS0234 /
+      CS0246 errors for Fakes, AspNetCore.Hosting, AspNetCore.Mvc, WebApplicationFactory,
+      Program, InMemoryWarehouse and IWebHostBuilder.
+    -->
+    <ProjectReference Include="../../src/Hosts/Bella.Wms.Api/Bella.Wms.Api.csproj" />
+    <ProjectReference Include="../../src/Platform/Bella.Wms.Platform.Fakes/Bella.Wms.Platform.Fakes.csproj" />
+    <ProjectReference Include="../../src/Modules/Bella.Wms.Integration.Erp/Infrastructure/Bella.Wms.Integration.Erp.Infrastructure.csproj" />
+    <ProjectReference Include="../../src/Modules/Bella.Wms.Integration.Partners/Infrastructure/Bella.Wms.Integration.Partners.Infrastructure.csproj" />
+    <ProjectReference Include="../../src/Platform/Bella.Wms.Platform.Identity/Bella.Wms.Platform.Identity.csproj" />
+    <ProjectReference Include="../../src/Platform/Bella.Wms.Platform.Http/Bella.Wms.Platform.Http.csproj" />
+    <ProjectReference Include="../../src/Platform/Bella.Wms.Platform.Audit/Bella.Wms.Platform.Audit.csproj" />
+    <ProjectReference Include="../../src/Platform/Bella.Wms.Platform.Config/Bella.Wms.Platform.Config.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <!-- Brings WebApplicationFactory<T> and the Microsoft.AspNetCore.App framework
+         reference the endpoint tests need. -->
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" />
+    <PackageReference Include="FluentAssertions" Version="7.0.0" />
+  </ItemGroup>
+</Project>

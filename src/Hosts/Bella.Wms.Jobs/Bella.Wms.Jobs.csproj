@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+  <ItemGroup>
+    <ProjectReference Include="../../Modules/Bella.Wms.Integration.Erp/Infrastructure/Bella.Wms.Integration.Erp.Infrastructure.csproj" />
+    <ProjectReference Include="../../Platform/Bella.Wms.Platform.Identity/Bella.Wms.Platform.Identity.csproj" />
+    <ProjectReference Include="../../Platform/Bella.Wms.Platform.Http/Bella.Wms.Platform.Http.csproj" />
+    <ProjectReference Include="../../Platform/Bella.Wms.Platform.Audit/Bella.Wms.Platform.Audit.csproj" />
+    <ProjectReference Include="../../Platform/Bella.Wms.Platform.Config/Bella.Wms.Platform.Config.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <!-- The licence-plate prefix rule is internal on purpose: it is an implementation
+         detail of the Locus router, not part of the module's surface. The
+         characterization suite asserts it directly, so it gets access without the rule
+         becoming public API. -->
+    <InternalsVisibleTo Include="Bella.Wms.Characterization" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Contracts/Bella.Wms.Integration.Partners.Contracts.csproj" />
+    <ProjectReference Include="../Domain/Bella.Wms.Integration.Partners.Domain.csproj" />
+    <ProjectReference Include="../../../Platform/Bella.Wms.Platform.Abstractions/Bella.Wms.Platform.Abstractions.csproj" />
+    <ProjectReference Include="../../../Platform/Bella.Wms.Platform.Context/Bella.Wms.Platform.Context.csproj" />
+    <ProjectReference Include="../../../Platform/Bella.Wms.Platform.Config/Bella.Wms.Platform.Config.csproj" />
+    <ProjectReference Include="../../../Platform/Bella.Wms.Platform.Data/Bella.Wms.Platform.Data.csproj" />
+    <ProjectReference Include="../../../Platform/Bella.Wms.Platform.Http/Bella.Wms.Platform.Http.csproj" />
+    <ProjectReference Include="../../../Platform/Bella.Wms.Platform.Audit/Bella.Wms.Platform.Audit.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+  </ItemGroup>
+</Project>

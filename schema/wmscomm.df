@@ -1,0 +1,545 @@
+ADD SEQUENCE "comm_id_seq"
+  INITIAL 0
+  INCREMENT 1
+  CYCLE-ON-LIMIT yes
+  MIN-VAL 0
+  MAX-VAL 9223372036854775807
+
+ADD SEQUENCE "trans_id_out"
+  INITIAL 0
+  INCREMENT 1
+  CYCLE-ON-LIMIT yes
+  MIN-VAL 0
+  MAX-VAL 9223372036854775807
+
+ADD TABLE "comm_in"
+  AREA "lob_data"
+  DESCRIPTION "Table to contain clob formatted data sets."
+  DUMP-NAME "comm_in"
+  TABLE-TRIGGER "Create" NO-OVERRIDE PROCEDURE "n_comm_in.t" CRC "?" 
+
+ADD FIELD "co_num" OF "comm_in" AS character 
+  FORMAT "x(4)"
+  INITIAL ""
+  LABEL "co_num"
+  POSITION 2
+  MAX-WIDTH 8
+  COLUMN-LABEL "co_num"
+  ORDER 10
+
+ADD FIELD "wh_num" OF "comm_in" AS character 
+  FORMAT "x(4)"
+  INITIAL ""
+  LABEL "wh_num"
+  POSITION 3
+  MAX-WIDTH 8
+  COLUMN-LABEL "wh_num"
+  HELP "Enter the wh_num code."
+  ORDER 20
+
+ADD FIELD "comm_id" OF "comm_in" AS int64 
+  FORMAT ">>>>>>>>>>>>>>>>>>9"
+  INITIAL "0"
+  LABEL "comm_id"
+  POSITION 4
+  MAX-WIDTH 8
+  COLUMN-LABEL "comm_id"
+  HELP "Based on DB sequence"
+  ORDER 30
+
+ADD FIELD "comm_endpoint" OF "comm_in" AS character 
+  FORMAT "x(10)"
+  INITIAL ""
+  LABEL "comm_endpoint"
+  POSITION 5
+  MAX-WIDTH 20
+  COLUMN-LABEL "comm_endpoint"
+  HELP "Destination System"
+  ORDER 40
+
+ADD FIELD "event_type" OF "comm_in" AS character 
+  FORMAT "x(15)"
+  INITIAL ""
+  LABEL "event_type"
+  POSITION 6
+  MAX-WIDTH 30
+  COLUMN-LABEL "event_type"
+  HELP "Enter the interface type"
+  ORDER 50
+
+ADD FIELD "event_id" OF "comm_in" AS character 
+  FORMAT "x(24)"
+  INITIAL ""
+  LABEL "event_id"
+  POSITION 7
+  MAX-WIDTH 48
+  COLUMN-LABEL "event_id"
+  ORDER 60
+
+ADD FIELD "process_status" OF "comm_in" AS character 
+  FORMAT "x(1)"
+  INITIAL ""
+  LABEL "Status"
+  POSITION 8
+  MAX-WIDTH 2
+  COLUMN-LABEL "Status"
+  HELP "Current processing status of this record"
+  ORDER 70
+
+ADD FIELD "create_date" OF "comm_in" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  LABEL "Date"
+  POSITION 9
+  MAX-WIDTH 4
+  COLUMN-LABEL "Date"
+  HELP "Date on which the record was created"
+  ORDER 80
+
+ADD FIELD "create_time" OF "comm_in" AS integer 
+  FORMAT ">>>>>>>>>9"
+  INITIAL ?
+  LABEL "CTime"
+  POSITION 10
+  MAX-WIDTH 4
+  COLUMN-LABEL "CTime"
+  HELP "Seconds since midnight"
+  ORDER 90
+
+ADD FIELD "process_date" OF "comm_in" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  LABEL "process_date"
+  POSITION 11
+  MAX-WIDTH 4
+  COLUMN-LABEL "process_date"
+  HELP "Date record processed"
+  ORDER 100
+
+ADD FIELD "process_time" OF "comm_in" AS integer 
+  FORMAT ">>>>>>>>>9"
+  INITIAL ?
+  LABEL "PTime"
+  POSITION 12
+  MAX-WIDTH 4
+  COLUMN-LABEL "PTime"
+  HELP "Seconds since midnight"
+  ORDER 110
+
+ADD FIELD "process_duration" OF "comm_in" AS integer 
+  FORMAT ">>>>>>>>>9"
+  INITIAL "0"
+  LABEL "Duration"
+  POSITION 13
+  MAX-WIDTH 4
+  COLUMN-LABEL "Duration"
+  HELP "Seconds spent processing the record"
+  ORDER 120
+
+ADD FIELD "retry_count" OF "comm_in" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "retry_count"
+  POSITION 14
+  MAX-WIDTH 4
+  COLUMN-LABEL "retry_count"
+  HELP "Retry number of current record"
+  ORDER 130
+
+ADD FIELD "event_data" OF "comm_in" AS clob 
+  FORMAT "x(8)"
+  INITIAL ?
+  POSITION 15
+  LOB-AREA "Schema Area"
+  LOB-BYTES 10485760
+  LOB-SIZE 10M
+  CLOB-CODEPAGE "UTF-8"
+  CLOB-COLLATION "basic"
+  CLOB-TYPE 2
+  ORDER 140
+
+ADD FIELD "ref_id" OF "comm_in" AS character 
+  FORMAT "x(24)"
+  INITIAL ""
+  LABEL "ref_id"
+  POSITION 16
+  MAX-WIDTH 48
+  COLUMN-LABEL "ref_id"
+  HELP "Primary Key of reference"
+  ORDER 150
+
+ADD FIELD "ref_id_type" OF "comm_in" AS character 
+  FORMAT "x(10)"
+  INITIAL ""
+  LABEL "ref_id_type"
+  POSITION 17
+  MAX-WIDTH 20
+  COLUMN-LABEL "ref_id_type"
+  HELP "Type of reference"
+  ORDER 160
+
+ADD FIELD "process_response_status" OF "comm_in" AS character 
+  FORMAT "x(10)"
+  INITIAL ""
+  LABEL "process_response_status"
+  POSITION 18
+  MAX-WIDTH 20
+  COLUMN-LABEL "ResponseStatus"
+  HELP "http status of record send attempt"
+  ORDER 170
+
+ADD FIELD "process_response" OF "comm_in" AS clob 
+  FORMAT "x(8)"
+  INITIAL ?
+  POSITION 19
+  LOB-AREA "Schema Area"
+  LOB-BYTES 10485760
+  LOB-SIZE 10M
+  CLOB-CODEPAGE "UTF-8"
+  CLOB-COLLATION "basic"
+  CLOB-TYPE 2
+  ORDER 180
+
+ADD FIELD "ref_comm_id" OF "comm_in" AS int64 
+  FORMAT ">>>>>>>>>>>>>>>>>>9"
+  INITIAL "0"
+  LABEL "ref_comm_id"
+  POSITION 20
+  MAX-WIDTH 8
+  COLUMN-LABEL "ref_comm_id"
+  HELP "Link to the comm_out record"
+  ORDER 190
+
+ADD FIELD "transmission_id" OF "comm_in" AS int64 
+  FORMAT ">,>>>,>>>,>>>,>>>,>>>,>>9"
+  INITIAL "0"
+  LABEL "Trans Id"
+  POSITION 21
+  MAX-WIDTH 8
+  ORDER 200
+
+ADD INDEX "id" ON "comm_in" 
+  AREA "unused_idx"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "comm_id" ASCENDING 
+
+ADD INDEX "co-wh-date-time" ON "comm_in" 
+  AREA "unused_idx"
+  INDEX-FIELD "co_num" ASCENDING 
+  INDEX-FIELD "wh_num" ASCENDING 
+  INDEX-FIELD "create_date" ASCENDING 
+  INDEX-FIELD "create_time" ASCENDING 
+
+ADD INDEX "co-wh-end-type-id" ON "comm_in" 
+  AREA "unused_idx"
+  INDEX-FIELD "co_num" ASCENDING 
+  INDEX-FIELD "wh_num" ASCENDING 
+  INDEX-FIELD "comm_endpoint" ASCENDING 
+  INDEX-FIELD "event_type" ASCENDING 
+  INDEX-FIELD "event_id" ASCENDING 
+
+ADD INDEX "co-wh-ref-id" ON "comm_in" 
+  AREA "unused_idx"
+  INDEX-FIELD "co_num" ASCENDING 
+  INDEX-FIELD "wh_num" ASCENDING 
+  INDEX-FIELD "ref_id_type" ASCENDING 
+  INDEX-FIELD "ref_id" ASCENDING 
+
+ADD INDEX "co-wh-stat-end-type-date-time" ON "comm_in" 
+  AREA "unused_idx"
+  INDEX-FIELD "co_num" ASCENDING 
+  INDEX-FIELD "wh_num" ASCENDING 
+  INDEX-FIELD "process_status" ASCENDING 
+  INDEX-FIELD "comm_endpoint" ASCENDING 
+  INDEX-FIELD "event_type" ASCENDING 
+  INDEX-FIELD "create_date" ASCENDING 
+  INDEX-FIELD "create_time" ASCENDING 
+
+ADD INDEX "stat-end-id" ON "comm_in" 
+  AREA "unused_idx"
+  INDEX-FIELD "process_status" ASCENDING 
+  INDEX-FIELD "comm_endpoint" ASCENDING 
+  INDEX-FIELD "comm_id" ASCENDING 
+
+ADD INDEX "trans-id" ON "comm_in" 
+  AREA "unused_idx"
+  INDEX-FIELD "transmission_id" ASCENDING 
+
+ADD TABLE "comm_out"
+  AREA "lob_data"
+  DESCRIPTION "Table to contain clob formatted data sets."
+  DUMP-NAME "comm_out"
+  TABLE-TRIGGER "Create" NO-OVERRIDE PROCEDURE "n_comm_out.t" CRC "?" 
+
+ADD FIELD "co_num" OF "comm_out" AS character 
+  FORMAT "x(4)"
+  INITIAL ""
+  LABEL "co_num"
+  POSITION 2
+  MAX-WIDTH 8
+  COLUMN-LABEL "co_num"
+  ORDER 10
+
+ADD FIELD "wh_num" OF "comm_out" AS character 
+  FORMAT "x(4)"
+  INITIAL ""
+  LABEL "wh_num"
+  POSITION 3
+  MAX-WIDTH 8
+  COLUMN-LABEL "wh_num"
+  HELP "Enter the wh_num code."
+  ORDER 20
+
+ADD FIELD "comm_id" OF "comm_out" AS int64 
+  FORMAT ">>>>>>>>>>>>>>>>>>9"
+  INITIAL "0"
+  LABEL "comm_id"
+  POSITION 4
+  MAX-WIDTH 8
+  COLUMN-LABEL "comm_id"
+  HELP "Based on DB sequence"
+  ORDER 30
+
+ADD FIELD "comm_endpoint" OF "comm_out" AS character 
+  FORMAT "x(10)"
+  INITIAL ""
+  LABEL "comm_endpoint"
+  POSITION 5
+  MAX-WIDTH 20
+  COLUMN-LABEL "comm_endpoint"
+  HELP "Destination System"
+  ORDER 40
+
+ADD FIELD "event_type" OF "comm_out" AS character 
+  FORMAT "x(15)"
+  INITIAL ""
+  LABEL "event_type"
+  POSITION 6
+  MAX-WIDTH 30
+  COLUMN-LABEL "event_type"
+  HELP "Enter the interface type"
+  ORDER 50
+
+ADD FIELD "event_id" OF "comm_out" AS character 
+  FORMAT "x(24)"
+  INITIAL ""
+  LABEL "event_id"
+  POSITION 7
+  MAX-WIDTH 48
+  COLUMN-LABEL "event_id"
+  ORDER 60
+
+ADD FIELD "process_status" OF "comm_out" AS character 
+  FORMAT "x(1)"
+  INITIAL ""
+  LABEL "Status"
+  POSITION 8
+  MAX-WIDTH 2
+  COLUMN-LABEL "Status"
+  HELP "Current processing status of this record"
+  ORDER 70
+
+ADD FIELD "create_date" OF "comm_out" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  LABEL "Date"
+  POSITION 9
+  MAX-WIDTH 4
+  COLUMN-LABEL "Date"
+  HELP "Date on which the record was created"
+  ORDER 80
+
+ADD FIELD "create_time" OF "comm_out" AS integer 
+  FORMAT ">>>>>>>>>9"
+  INITIAL ?
+  LABEL "CTime"
+  POSITION 10
+  MAX-WIDTH 4
+  COLUMN-LABEL "CTime"
+  HELP "Seconds since midnight"
+  ORDER 90
+
+ADD FIELD "process_date" OF "comm_out" AS date 
+  FORMAT "99/99/99"
+  INITIAL ?
+  LABEL "process_date"
+  POSITION 11
+  MAX-WIDTH 4
+  COLUMN-LABEL "process_date"
+  HELP "Date record processed"
+  ORDER 100
+
+ADD FIELD "process_time" OF "comm_out" AS integer 
+  FORMAT ">>>>>>>>>9"
+  INITIAL ?
+  LABEL "PTime"
+  POSITION 12
+  MAX-WIDTH 4
+  COLUMN-LABEL "PTime"
+  HELP "Seconds since midnight"
+  ORDER 110
+
+ADD FIELD "process_duration" OF "comm_out" AS integer 
+  FORMAT ">>>>>>>>>9"
+  INITIAL "0"
+  LABEL "Duration"
+  POSITION 13
+  MAX-WIDTH 4
+  COLUMN-LABEL "Duration"
+  HELP "Seconds spent processing the record"
+  ORDER 120
+
+ADD FIELD "retry_count" OF "comm_out" AS integer 
+  FORMAT ">,>>>,>>9"
+  INITIAL "0"
+  LABEL "retry_count"
+  POSITION 14
+  MAX-WIDTH 4
+  COLUMN-LABEL "retry_count"
+  HELP "Retry number of current record"
+  ORDER 130
+
+ADD FIELD "event_data" OF "comm_out" AS clob 
+  FORMAT "x(8)"
+  INITIAL ?
+  POSITION 15
+  LOB-AREA "lob_data"
+  LOB-BYTES 10485760
+  LOB-SIZE 10M
+  CLOB-CODEPAGE "UTF-8"
+  CLOB-COLLATION "basic"
+  CLOB-TYPE 2
+  ORDER 140
+
+ADD FIELD "ref_id" OF "comm_out" AS character 
+  FORMAT "x(24)"
+  INITIAL ""
+  LABEL "ref_id"
+  POSITION 16
+  MAX-WIDTH 48
+  COLUMN-LABEL "ref_id"
+  HELP "Primary Key of reference"
+  ORDER 150
+
+ADD FIELD "ref_id_type" OF "comm_out" AS character 
+  FORMAT "x(10)"
+  INITIAL ""
+  LABEL "ref_id_type"
+  POSITION 17
+  MAX-WIDTH 20
+  COLUMN-LABEL "ref_id_type"
+  HELP "Type of reference"
+  ORDER 160
+
+ADD FIELD "process_response_status" OF "comm_out" AS character 
+  FORMAT "x(10)"
+  INITIAL ""
+  LABEL "process_response_status"
+  POSITION 18
+  MAX-WIDTH 20
+  COLUMN-LABEL "ResponseStatus"
+  HELP "http status of record send attempt"
+  ORDER 170
+
+ADD FIELD "process_response" OF "comm_out" AS clob 
+  FORMAT "x(8)"
+  INITIAL ?
+  POSITION 19
+  LOB-AREA "lob_data"
+  LOB-BYTES 10485760
+  LOB-SIZE 10M
+  CLOB-CODEPAGE "UTF-8"
+  CLOB-COLLATION "basic"
+  CLOB-TYPE 2
+  ORDER 180
+
+ADD FIELD "transmission_id" OF "comm_out" AS int64 
+  FORMAT ">,>>>,>>>,>>>,>>>,>>>,>>9"
+  INITIAL "0"
+  LABEL "Trans Id"
+  POSITION 20
+  MAX-WIDTH 8
+  ORDER 190
+
+ADD FIELD "ref_comm_id" OF "comm_out" AS int64 
+  FORMAT ">>>>>>>>>>>>>>>>>>9"
+  INITIAL "0"
+  LABEL "ref_comm_id"
+  POSITION 21
+  MAX-WIDTH 8
+  COLUMN-LABEL "ref_comm_id"
+  HELP "Link to the comm_out record"
+  ORDER 200
+
+ADD FIELD "ref_trans_num" OF "comm_out" AS integer 
+  FORMAT ">>>>>>>>9"
+  INITIAL "0"
+  LABEL "Ref Transaction Number"
+  POSITION 22
+  MAX-WIDTH 4
+  ORDER 210
+
+ADD INDEX "id" ON "comm_out" 
+  AREA "unused_idx"
+  UNIQUE
+  PRIMARY
+  INDEX-FIELD "comm_id" ASCENDING 
+
+ADD INDEX "co-wh-date-time" ON "comm_out" 
+  AREA "unused_idx"
+  INDEX-FIELD "co_num" ASCENDING 
+  INDEX-FIELD "wh_num" ASCENDING 
+  INDEX-FIELD "create_date" ASCENDING 
+  INDEX-FIELD "create_time" ASCENDING 
+
+ADD INDEX "co-wh-end-type-id" ON "comm_out" 
+  AREA "unused_idx"
+  INDEX-FIELD "co_num" ASCENDING 
+  INDEX-FIELD "wh_num" ASCENDING 
+  INDEX-FIELD "comm_endpoint" ASCENDING 
+  INDEX-FIELD "event_type" ASCENDING 
+  INDEX-FIELD "event_id" ASCENDING 
+
+ADD INDEX "co-wh-end-type-stat-pdate-ptime" ON "comm_out" 
+  AREA "unused_idx"
+  INDEX-FIELD "co_num" ASCENDING 
+  INDEX-FIELD "wh_num" ASCENDING 
+  INDEX-FIELD "comm_endpoint" ASCENDING 
+  INDEX-FIELD "event_type" ASCENDING 
+  INDEX-FIELD "process_status" ASCENDING 
+  INDEX-FIELD "process_date" ASCENDING 
+  INDEX-FIELD "process_time" ASCENDING 
+
+ADD INDEX "co-wh-ref-id" ON "comm_out" 
+  AREA "unused_idx"
+  INDEX-FIELD "co_num" ASCENDING 
+  INDEX-FIELD "wh_num" ASCENDING 
+  INDEX-FIELD "ref_id_type" ASCENDING 
+  INDEX-FIELD "ref_id" ASCENDING 
+
+ADD INDEX "co-wh-stat-end-type-date-time" ON "comm_out" 
+  AREA "unused_idx"
+  INDEX-FIELD "co_num" ASCENDING 
+  INDEX-FIELD "wh_num" ASCENDING 
+  INDEX-FIELD "process_status" ASCENDING 
+  INDEX-FIELD "comm_endpoint" ASCENDING 
+  INDEX-FIELD "event_type" ASCENDING 
+  INDEX-FIELD "create_date" ASCENDING 
+  INDEX-FIELD "create_time" ASCENDING 
+
+ADD INDEX "stat-end-id" ON "comm_out" 
+  AREA "unused_idx"
+  INDEX-FIELD "process_status" ASCENDING 
+  INDEX-FIELD "comm_endpoint" ASCENDING 
+  INDEX-FIELD "comm_id" ASCENDING 
+
+ADD INDEX "trans-id" ON "comm_out" 
+  AREA "unused_idx"
+  INDEX-FIELD "transmission_id" ASCENDING 
+
+.
+PSC
+cpstream=UTF-8
+.
+0000011983

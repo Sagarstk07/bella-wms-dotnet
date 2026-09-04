@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../../../Platform/Bella.Wms.Platform.Abstractions/Bella.Wms.Platform.Abstractions.csproj" />
+  </ItemGroup>
+</Project>
